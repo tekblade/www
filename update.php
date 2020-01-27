@@ -1,22 +1,17 @@
-<html><head><title>CRUD Tutorial - Customer's list</title></head><body>
+<html><head><title>CRUD Tutorial - Update example</title></head><body>
 <?php
-define('DEBUG', true);											// Debug mode
-define('PS_SHOP_PATH', "localhost");		// Root path of your PrestaShop store
-define('PS_WS_AUTH_KEY', 'WD8GDELF9VQVNF5VHFBHEARP1LMJJEV2');	// Auth key (Get it in your Back Office)
+define('DEBUG', true);
+define('PS_SHOP_PATH', 'localhost/api/products/');
+define('PS_WS_AUTH_KEY', 'WD8GDELF9VQVNF5VHFBHEARP1LMJJEV2');
 require_once('./PSWebServiceLibrary.php');
+echo $_POST['id'];
 $webService = new PrestaShopWebservice("localhost/api/products/".$_POST['id'], PS_WS_AUTH_KEY, DEBUG);
-$opt = array('resource' => 'product');
-$opt['id'] = $_POST ['id'];
-$xml = $webService->get( $opt );
-$resources = $xml->children()->children();
-$resources->quantity=$_POST['quantity'];
-$opt = array('resource' => 'product');
-$opt['putXml'] = $xml->asXML();
-$opt['id'] = $_POST[ 'id' ];
-$xml = $webService->edit($opt);
-
+$opt['resource'] = 'product';
+$xml = $webService->get($opt);
+$detailsResources = $xml->product->children();
+foreach ($detailsResources as $nodeKey => $node) {
+    if($nodeKey=='quantity')
+		$detailsResources->$nodeKey = $_POST[$nodeKey];
+}
 ?>
-
-
-
 </body></html>
