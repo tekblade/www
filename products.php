@@ -4,7 +4,8 @@ define('DEBUG', false);											// Debug mode
 define('PS_SHOP_PATH', "localhost/");		// Root path of your PrestaShop store
 define('PS_WS_AUTH_KEY', 'WD8GDELF9VQVNF5VHFBHEARP1LMJJEV2');	// Auth key (Get it in your Back Office)
 require_once('./PSWebServiceLibrary.php');
-$GLOBALS['a'] = 'emptyItem';
+$GLOBALS['a'] = 'someItem';
+$GLOBALS['id'] = 0; 
 try
 {	
 	
@@ -37,11 +38,17 @@ catch (PrestaShopWebserviceException $e)
 			}
 		}
 		foreach($detailsResources as $key=>$resource){
+			if($key=='id'){
+				$GLOBALS['id']=$resource;
+				
+			}
+		}
+		foreach($detailsResources as $key=>$resource){
 			if($key=='quantity'){
 			echo '<tr><td>' . $GLOBALS['a']->children() . '<td>';
 			echo '<form action="update.php" method="post">';
 			echo '<td><input type="text" name="'.$key.'" value="' . $resource . '"/></td>';
-			echo '<input type="hidden" name="id" value="'.$resource->attributes()->id.'">';
+			echo '<input type="hidden" name="id" value="'.$GLOBALS['id'].'"/>';
 			echo '<td><input type="submit" value="update" /></td>';
 			echo '</form>';
 			echo '</tr>';	
