@@ -4,7 +4,7 @@ define('DEBUG', false);											// Debug mode
 define('PS_SHOP_PATH', "localhost/");		// Root path of your PrestaShop store
 define('PS_WS_AUTH_KEY', 'WD8GDELF9VQVNF5VHFBHEARP1LMJJEV2');	// Auth key (Get it in your Back Office)
 require_once('./PSWebServiceLibrary.php');
-$GLOBALS['a'] = 'localhost';
+$GLOBALS['a'] = 'emptyItem';
 try
 {	
 	
