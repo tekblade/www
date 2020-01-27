@@ -13,5 +13,6 @@ foreach ($detailsResources as $nodeKey => $node) {
     if($nodeKey=='quantity')
 		$detailsResources->$nodeKey = $_POST[$nodeKey];
 }
+//Here should be code which updates xml file but got an Http Status 400
 ?>
 </body></html>
